@@ -1,17 +1,9 @@
-headers:
-    type: DeployContract
-from: "0xB7283FcDf45bB8f3f8A0fb617aD083d55b4e8F31"
-params:
-    - 12345
-gas: 100000000
-compilerVersion: '0.5'
-solidity: |-
     pragma solidity >=0.4.24 <0.6.0;
     /**
-     * @title Report1
+     * @title report1
      * @dev Read and write values to the chain
      */
-    contract SampleReport {
+    contract report1 {
         uint public storedData;
         /**
          * @dev Constructor sets the default value
