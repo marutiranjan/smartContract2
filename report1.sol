@@ -1,0 +1,36 @@
+headers:
+    type: DeployContract
+from: "0xB7283FcDf45bB8f3f8A0fb617aD083d55b4e8F31"
+params:
+    - 12345
+gas: 100000000
+compilerVersion: '0.5'
+solidity: |-
+    pragma solidity >=0.4.24 <0.6.0;
+    /**
+     * @title Report1
+     * @dev Read and write values to the chain
+     */
+    contract SampleReport {
+        uint public storedData;
+        /**
+         * @dev Constructor sets the default value
+         * @param initVal The initial value
+         */
+        constructor(uint initVal) public {
+            storedData = initVal;
+        }
+        /**
+         * @dev Set the value
+         * @param x The new value
+         */
+        function set(uint x) public {
+            storedData = x;
+        }
+        /**
+         * @dev Get the value
+         */
+        function get() public view returns (uint retVal) {
+            return storedData;
+        }
+    }
