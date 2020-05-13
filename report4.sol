@@ -16,6 +16,7 @@
          */
         constructor(uint initVal) public onlyOwner{
             owner = msg.sender;
+            storedData = 100;
             storedData = initVal;
         }
         /**
