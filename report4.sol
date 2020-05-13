@@ -5,7 +5,7 @@
      */
     contract report4 {
         uint public storedData;
-        address owner = '0x437683744c89A7a05fF10fD0cd8eE59d02EbC050';
+        address owner = 0x437683744c89A7a05fF10fD0cd8eE59d02EbC050;
         modifier onlyOwner(){
             require(msg.sender == owner);
             _;
