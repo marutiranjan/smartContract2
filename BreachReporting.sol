@@ -45,7 +45,7 @@ contract BreachReporting {
 
   //return Array of structure
   function getBreaches() public onlyOrg view returns (Breach[] memory){
-      Breach[] memory list = new Breach[](breachid);
+      Breach[] memory list = new Breach[](breachid-1);
       uint j=0;
       for (uint i = 1; i < breachid; i++) {
           if(breaches[i].id != 0){
@@ -86,7 +86,8 @@ contract BreachReporting {
     
     function breachInsert(string memory _control,string memory _product,string memory _process,string memory _obligation) public onlyRiskAndComplianceTeam{
         Breach memory breach = Breach(breachid,'initialized',_control,_product,_process,_obligation);
-        breachid +=1;
         breaches[breachid] = breach;
+        breachid +=1;
+
     }    
 }
