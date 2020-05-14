@@ -89,5 +89,10 @@ contract BreachReporting {
         breaches[breachid] = breach;
         breachid +=1;
 
-    }    
+    }   
+    
+   function getBreach(uint _id) public view returns (uint id, string memory state, string memory control,string memory product, string memory process, string memory obligation){
+      Breach memory breach = breaches[_id];    
+      return (breach.id,breach.state,breach.control,breach.product,breach.process,breach.obligation);
+  }  
 }
