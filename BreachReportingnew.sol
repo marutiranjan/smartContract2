@@ -44,14 +44,24 @@ contract BreachReportingnew {
       return breaches[1];
   }   
   
-  function getBreach3() public view returns (string[] memory,string[] memory){
-      string[] memory control = new string[](2);
-      string[] memory obli = new string[](2);
-      control[0] = 'call center';
-      control[1] = 'call center';
-      obli[0] = 'during call';
-      obli[1] = 'bad talk';
-      return (control,obli);
+  function getBreach3() public view returns (string[] memory state,string[] memory control,string[] memory product,string[] memory process,string[] memory obligation){
+      string[] memory _control = new string[](breachid-1);
+      string[] memory _obligation = new string[](breachid-1);
+      string[] memory _state = new string[](breachid-1);
+      string[] memory _product = new string[](breachid-1);
+      string[] memory _process = new string[](breachid-1);
+      uint j=0;
+      for (uint i = 1; i < breachid; i++) {
+          if(breaches[i].id != 0){
+            _state[j] = breaches[i].state;
+            _control[j] = breaches[i].control;
+            _product[j] = breaches[i].product;
+            _process[j] = breaches[i].process;
+            _obligation[j] = breaches[i].obligation;
+            j +=1;
+          }
+      }
+      return (_state,_control,_product,_process,_obligation);
   }   
   
   function BreachesForRegulators() public view returns (Breach[] memory){
