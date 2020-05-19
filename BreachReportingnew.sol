@@ -44,6 +44,16 @@ contract BreachReportingnew {
       return breaches[1];
   }   
   
+  function getBreach3() public view returns (string[] memory,string[] memory){
+      string[] memory control = new string[](2);
+      string[] memory obli = new string[](2);
+      control[0] = 'call center';
+      control[1] = 'call center';
+      obli[0] = 'during call';
+      obli[1] = 'bad talk';
+      return (control,obli);
+  }   
+  
   function BreachesForRegulators() public view returns (Breach[] memory){
       Breach[] memory list = new Breach[](breachid);
       uint j=0;
