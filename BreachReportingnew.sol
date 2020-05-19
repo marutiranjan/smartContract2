@@ -39,6 +39,11 @@ contract BreachReportingnew {
       return list;
   }    
   
+  //return Array of structure
+  function getBreach2() public view returns (Breach memory){
+      return breaches[1];
+  }   
+  
   function BreachesForRegulators() public view returns (Breach[] memory){
       Breach[] memory list = new Breach[](breachid);
       uint j=0;
