@@ -8,10 +8,7 @@ pragma experimental ABIEncoderV2;
 contract BreachReportingnew {
 
     uint breachid;
-    address riskAndComplianceUser = 0x7484be8Ce136638aEc2C46f3A5c1d1833CE7B6f9;
-    address ContactCenterUser = 0xEB147eF683E00c881A52eA99aa584B511e23E08D;
-    address AuditorUser = 0x763f74320b6A0f6874499b063a2Ff554ad2418F1;
-    
+
     struct Breach { 
        uint256 id;
        string state;
@@ -23,28 +20,13 @@ contract BreachReportingnew {
     
     mapping(uint => Breach) internal breaches;
     
-    modifier onlyRiskAndComplianceTeam(){
-        require(msg.sender == riskAndComplianceUser);
-        _;
-    }    
-
-    modifier onlyOrg(){
-        require(msg.sender == riskAndComplianceUser || msg.sender == ContactCenterUser || msg.sender == AuditorUser );
-        _;
-    }    
-
-    modifier onlyRegulator(){
-        require(msg.sender != riskAndComplianceUser && msg.sender != ContactCenterUser && msg.sender != AuditorUser);
-        _;
-    }    
-
-    constructor() public onlyRiskAndComplianceTeam{
+    constructor() public {
         breachid = 1;
     }
     
 
   //return Array of structure
-  function getBreaches() public onlyOrg view returns (Breach[] memory){
+  function getBreaches() public view returns (Breach[] memory){
       Breach[] memory list = new Breach[](breachid-1);
       uint j=0;
       for (uint i = 1; i < breachid; i++) {
@@ -57,7 +39,7 @@ contract BreachReportingnew {
       return list;
   }    
   
-  function BreachesForRegulators() public onlyRegulator view returns (Breach[] memory){
+  function BreachesForRegulators() public view returns (Breach[] memory){
       Breach[] memory list = new Breach[](breachid);
       uint j=0;
       for (uint i = 1; i < breachid; i++) {
@@ -70,21 +52,21 @@ contract BreachReportingnew {
       return list;
   }  
     
-    function breachUpdate(uint id,string memory _state,string memory _control,string memory _product,string memory _process,string memory _obligation) public onlyRiskAndComplianceTeam{
+    function breachUpdate(uint id,string memory _state,string memory _control,string memory _product,string memory _process,string memory _obligation) public {
         Breach memory breach = Breach(id,_state,_control,_product,_process,_obligation);
         if(breaches[id].id != 0) {
             breaches[id] = breach;
         }
     }    
     
-    function breachUpdateAck(uint id,string memory _state,string memory _control,string memory _product,string memory _process,string memory _obligation) public onlyRegulator{
+    function breachUpdateAck(uint id,string memory _state,string memory _control,string memory _product,string memory _process,string memory _obligation) public {
         Breach memory breach = Breach(id,_state,_control,_product,_process,_obligation);
         if(breaches[id].id != 0) {
             breaches[id] = breach;
         }
     }    
     
-    function breachInsert(string memory _control,string memory _product,string memory _process,string memory _obligation) public onlyRiskAndComplianceTeam{
+    function breachInsert(string memory _control,string memory _product,string memory _process,string memory _obligation) public {
         Breach memory breach = Breach(breachid,'initialized',_control,_product,_process,_obligation);
         breaches[breachid] = breach;
         breachid +=1;
