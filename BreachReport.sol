@@ -56,24 +56,31 @@ contract BreachReport {
     constructor() public {
         breachid = 1;
     }
-    
 
     function toggleContractStopped() onlyRiskAndComplianceTeam public {
       stopped = !stopped;
     }  
 
-    function breachInsert(string memory _product,string memory _process,string memory _control,string memory _breachtimestamp,string memory _agentName,string  memory _conversationName,string memory _jurisdiction,string memory _breachName,string memory _regulator,string memory _clientDetails,string memory _breachDescription) public {
+    function breachInsert2(string memory _product,string memory _process,string memory _control,string memory _breachtimestamp,string memory _agentName,string  memory _conversationName,string memory _jurisdiction,string memory _breachName,string memory _regulator,string memory _clientDetails,string memory _breachDescription) public {
         Breach memory breach = Breach(breachid,'INIT',_product,_process,_control,_breachtimestamp,_agentName,_conversationName,_jurisdiction,_breachName,_regulator,_clientDetails,_breachDescription,'SYSTEM');
         breaches[breachid] = breach;
         breachid +=1;
     }     
     
-    
-    function test(string[] memory breachData) public{
-        
-    }  
+    function breachInsert(string[] memory breachFields,string[] memory breachValues) public {
+        Breach memory breach = Breach(breachid,'INIT',breachValues[0],breachValues[1],breachValues[2],breachValues[3],breachValues[4],breachValues[5],breachValues[6],breachValues[7],breachValues[8],breachValues[9],breachValues[10],'SYSTEM');
+        breaches[breachid] = breach;
+        breachid +=1;
+    } 
 
-    
+    function breachUpdate(uint breachid,string[] memory breachFields,string[] memory breachValues) public {
+        
+        if(breaches[breachid].id == breachid){
+            Breach memory breach = Breach(breachid,'INPROCESS',breachValues[0],breachValues[1],breachValues[2],breachValues[3],breachValues[4],breachValues[5],breachValues[6],breachValues[7],breachValues[8],breachValues[9],breachValues[10],'SYSTEM');
+            breaches[breachid] = breach;
+        }
+    } 
+
     function invalidateBreach(uint256 _id) public {
         if(breaches[_id].id > 0) {
             breaches[_id].state = 'INVALID';
@@ -100,8 +107,53 @@ contract BreachReport {
             breaches[_id].state = 'REGACK';
         }
     }  
+    
+    function getBreachData(uint _id) public view returns (uint breachid,string[] memory breachFields,string[] memory breachValues){
+      if( breaches[_id].id == _id) {
+          string [] memory _breachFields = new string[](13);
+          string [] memory _breachValues = new string[](13);
+          _breachFields[0] = 'state';
+		  _breachFields[1] = 'product';
+		  _breachFields[2] = 'process';
+		  _breachFields[3] = 'control';
+		  _breachFields[4] = 'breachtimestamp';
+		  _breachFields[5] = 'agentName';
+		  _breachFields[6] = 'conversationName';
+          _breachFields[7] = 'jurisdiction';
+		  _breachFields[8] = 'breachName';
+		  _breachFields[9] = 'regulator';
+		  _breachFields[10] = 'clientDetails';
+		  _breachFields[11] = 'breachDescription';
+		  _breachFields[12] = 'updatedby';
+		  
+		  _breachValues[0] = breaches[_id].state;
+		  _breachValues[1] = breaches[_id].product;
+		  _breachValues[2] = breaches[_id].process;
+		  _breachValues[3] = breaches[_id].control;
+		  _breachValues[4] = breaches[_id].breachtimestamp;
+		  _breachValues[5] = breaches[_id].agentName;
+		  _breachValues[6] = breaches[_id].conversationName;
+          _breachValues[7] = breaches[_id].jurisdiction;
+		  _breachValues[8] = breaches[_id].breachName;
+		  _breachValues[9] = breaches[_id].regulator;
+		  _breachValues[10] = breaches[_id].clientDetails;
+		  _breachValues[11] = breaches[_id].breachDescription;
+		  _breachValues[12] = breaches[_id].updatedby;
+		  
+            return (_id,_breachFields,_breachValues);
+      }else{
+          return ("","","","","","","");
+      }
+     }     
 
-     
+    function getBreach2(uint _id) public view returns (string memory breachDescription,string memory conversationName,string memory jurisdiction,string memory regulator,string memory agentName,string memory clientDetails,string memory updatedby){
+      if( breaches[0].id > 0) {
+
+            return (breaches[_id].breachDescription,breaches[_id].conversationName,breaches[_id].jurisdiction,breaches[_id].regulator,breaches[_id].agentName,breaches[_id].clientDetails,breaches[_id].updatedby);
+      }else{
+          return ("","","","","","","");
+      }
+     }     
 
     function getBreach(uint _id) public view returns (string memory breachDescription,string memory conversationName,string memory jurisdiction,string memory regulator,string memory agentName,string memory clientDetails,string memory updatedby){
       if( breaches[0].id > 0) {
@@ -111,6 +163,5 @@ contract BreachReport {
           return ("","","","","","","");
       }
      }
-
 
 }
