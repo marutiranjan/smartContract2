@@ -141,8 +141,6 @@ contract BreachReport {
 		  _breachValues[12] = breaches[_id].updatedby;
 		  
             return (_id,_breachFields,_breachValues);
-      }else{
-          return ("","","","","","","");
       }
      }     
 
