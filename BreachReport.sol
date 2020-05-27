@@ -162,4 +162,32 @@ contract BreachReport {
       }
      }
 
+      function getBreaches() public view returns (uint[] memory breachId,string[] memory state,string[] memory control,string[] memory product,string[] memory process,string[] memory breachtimestamp,string[] memory breachName,string[] memory agentName){
+          uint[] memory _id = new uint[](breachid-1);
+          string[] memory _state = new string[](breachid-1);
+          string[] memory _control = new string[](breachid-1);
+          string[] memory _product = new string[](breachid-1);
+          string[] memory _process = new string[](breachid-1);
+          string[] memory _breachtimestamp = new string[](breachid-1);
+          string[] memory _breachName = new string[](breachid-1);
+          string[] memory _agentName = new string[](breachid-1);
+
+
+          uint j=0;
+          for (uint i = breachid-1; i > 0; i--) {
+              if(breaches[i].id > 0){
+                _id[j] = breaches[i].id;  
+                _state[j] = breaches[i].state;
+                _control[j] = breaches[i].control;
+                _product[j] = breaches[i].product;
+                _process[j] = breaches[i].process;
+                _breachtimestamp[j] = breaches[i].breachtimestamp;
+                _breachName[j] = breaches[i].breachName;
+                _agentName[j] = breaches[i].agentName;
+                j +=1;
+              }
+          }
+          return (_id,_state,_control,_product,_process,_breachtimestamp,_breachName,_agentName);
+      }	 
+
 }
