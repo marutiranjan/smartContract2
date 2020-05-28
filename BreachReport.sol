@@ -144,11 +144,11 @@ contract BreachReport {
 
       function getAllBreaches() public view returns (uint[] memory breachId,string[] memory state,string[] memory control,string[] memory product,string[] memory process,string[] memory breachName){
           uint[] memory _id = new uint[](breachid-1);
-          string[] memory _state = new string[](breachid-1);
-          string[] memory _control = new string[](breachid-1);
-          string[] memory _product = new string[](breachid-1);
-          string[] memory _process = new string[](breachid-1);
-          string[] memory _breachName = new string[](breachid-1);
+          string[] memory _state;
+          string[] memory _control;
+          string[] memory _product;
+          string[] memory _process;
+          string[] memory _breachName;
 
 
 
@@ -168,12 +168,12 @@ contract BreachReport {
       }	 
 	  
       function getBreachesInRange(uint startId,uint range) public view returns (uint[] memory breachId,string[] memory state,string[] memory control,string[] memory product,string[] memory process,string[] memory breachName){
-          uint[] memory _id = new uint[](range);
-          string[] memory _state = new string[](range);
-          string[] memory _control = new string[](range);
-          string[] memory _product = new string[](range);
-          string[] memory _process = new string[](range);
-          string[] memory _breachName = new string[](range);
+          uint[] memory _id;
+          string[] memory _state;
+          string[] memory _control;
+          string[] memory _product;
+          string[] memory _process;
+          string[] memory _breachName;
 		  
 		  uint bid = 0;
           if (startId == 0){
@@ -199,8 +199,8 @@ contract BreachReport {
 	  
     function getBreachDataForRegulator(uint _id) public view returns (uint breachid,string[] memory breachFields,string[] memory breachValues){
       if( breaches[_id].id == _id && ( ((keccak256(bytes(breaches[_id].state)) == keccak256(bytes("AUDITSIGNOFF")))) ||  ((keccak256(bytes(breaches[_id].state)) == keccak256(bytes("REGACK")))) ) ) {
-          string [] memory _breachFields = new string[](13);
-          string [] memory _breachValues = new string[](13);
+          string [] memory _breachFields;
+          string [] memory _breachValues;
           _breachFields[0] = 'state';
 		  _breachFields[1] = 'product';
 		  _breachFields[2] = 'process';
@@ -234,12 +234,12 @@ contract BreachReport {
      }     
 
       function getAllBreachesForRegulator() public view returns (uint[] memory breachId,string[] memory state,string[] memory control,string[] memory product,string[] memory process,string[] memory breachName){
-          uint[] memory _id = new uint[](breachid-1);
-          string[] memory _state = new string[](breachid-1);
-          string[] memory _control = new string[](breachid-1);
-          string[] memory _product = new string[](breachid-1);
-          string[] memory _process = new string[](breachid-1);
-          string[] memory _breachName = new string[](breachid-1);
+          uint[] memory _id;
+          string[] memory _state;
+          string[] memory _control;
+          string[] memory _product;
+          string[] memory _process;
+          string[] memory _breachName;
 
 
 
@@ -259,12 +259,12 @@ contract BreachReport {
       }	 
 	  
       function getBreachesInRangeForRegulator(uint startId,uint range) public view returns (uint[] memory breachId,string[] memory state,string[] memory control,string[] memory product,string[] memory process,string[] memory breachName){
-          uint[] memory _id = new uint[](range);
-          string[] memory _state = new string[](range);
-          string[] memory _control = new string[](range);
-          string[] memory _product = new string[](range);
-          string[] memory _process = new string[](range);
-          string[] memory _breachName = new string[](range);
+          uint[] memory _id;
+          string[] memory _state;
+          string[] memory _control;
+          string[] memory _product;
+          string[] memory _process;
+          string[] memory _breachName;
 		  
 		  uint bid = 0;
           if (startId == 0){
