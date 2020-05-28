@@ -168,7 +168,8 @@ contract BreachReport {
       }	 
 	  
       function getBreachesInRange(uint startId,uint range) public view returns (uint[] memory breachId,string[] memory state,string[] memory control,string[] memory product,string[] memory process,string[] memory breachName){
-          uint[] memory _id = new uint[](range);
+          
+		  uint[] memory _id = new uint[](range);
           string[] memory _state = new string[](range);
           string[] memory _control = new string[](range);
           string[] memory _product = new string[](range);
