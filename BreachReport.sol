@@ -144,22 +144,23 @@ contract BreachReport {
 
       function getAllBreaches() public view returns (uint[] memory breachId,string[] memory state,string[] memory control,string[] memory product,string[] memory process,string[] memory breachName){
           uint[] memory _id = new uint[](breachid-1);
-          string[] memory _state;
-          string[] memory _control;
-          string[] memory _product;
-          string[] memory _process;
-          string[] memory _breachName;
+          string[] memory _state = new string[](breachid-1);
+          string[] memory _control = new string[](breachid-1);
+          string[] memory _product = new string[](breachid-1);
+          string[] memory _process = new string[](breachid-1);
+          string[] memory _breachName = new string[](breachid-1);
+
 
 
           uint j=0;
           for (uint i = breachid-1; i > 0; i--) {
               if(breaches[i].id > 0){
-                _id.push(breaches[i].id);  
-                _state.push(breaches[i].state);
-                _control.push(breaches[i].control);
-                _product.push(breaches[i].product);
-                _process.push(breaches[i].process);
-                _breachName.push(breaches[i].breachName);
+                _id[j] = breaches[i].id;  
+                _state[j] = breaches[i].state;
+                _control[j] = breaches[i].control;
+                _product[j] = breaches[i].product;
+                _process[j] = breaches[i].process;
+                _breachName[j] = breaches[i].breachName;
                 j +=1;
               }
           }
@@ -167,12 +168,12 @@ contract BreachReport {
       }	 
 	  
       function getBreachesInRange(uint startId,uint range) public view returns (uint[] memory breachId,string[] memory state,string[] memory control,string[] memory product,string[] memory process,string[] memory breachName){
-          uint[] memory _id;
-          string[] memory _state;
-          string[] memory _control;
-          string[] memory _product;
-          string[] memory _process;
-          string[] memory _breachName;
+          uint[] memory _id = new uint[](range);
+          string[] memory _state = new string[](range);
+          string[] memory _control = new string[](range);
+          string[] memory _product = new string[](range);
+          string[] memory _process = new string[](range);
+          string[] memory _breachName = new string[](range);
 		  
 		  uint bid = 0;
           if (startId == 0){
@@ -198,8 +199,8 @@ contract BreachReport {
 	  
     function getBreachDataForRegulator(uint _id) public view returns (uint breachid,string[] memory breachFields,string[] memory breachValues){
       if( breaches[_id].id == _id && ( ((keccak256(bytes(breaches[_id].state)) == keccak256(bytes("AUDITSIGNOFF")))) ||  ((keccak256(bytes(breaches[_id].state)) == keccak256(bytes("REGACK")))) ) ) {
-          string [] memory _breachFields;
-          string [] memory _breachValues;
+          string [] memory _breachFields = new string[](13);
+          string [] memory _breachValues = new string[](13);
           _breachFields[0] = 'state';
 		  _breachFields[1] = 'product';
 		  _breachFields[2] = 'process';
@@ -233,12 +234,12 @@ contract BreachReport {
      }     
 
       function getAllBreachesForRegulator() public view returns (uint[] memory breachId,string[] memory state,string[] memory control,string[] memory product,string[] memory process,string[] memory breachName){
-          uint[] memory _id;
-          string[] memory _state;
-          string[] memory _control;
-          string[] memory _product;
-          string[] memory _process;
-          string[] memory _breachName;
+          uint[] memory _id = new uint[](breachid-1);
+          string[] memory _state = new string[](breachid-1);
+          string[] memory _control = new string[](breachid-1);
+          string[] memory _product = new string[](breachid-1);
+          string[] memory _process = new string[](breachid-1);
+          string[] memory _breachName = new string[](breachid-1);
 
 
 
@@ -258,12 +259,12 @@ contract BreachReport {
       }	 
 	  
       function getBreachesInRangeForRegulator(uint startId,uint range) public view returns (uint[] memory breachId,string[] memory state,string[] memory control,string[] memory product,string[] memory process,string[] memory breachName){
-          uint[] memory _id;
-          string[] memory _state;
-          string[] memory _control;
-          string[] memory _product;
-          string[] memory _process;
-          string[] memory _breachName;
+          uint[] memory _id = new uint[](range);
+          string[] memory _state = new string[](range);
+          string[] memory _control = new string[](range);
+          string[] memory _product = new string[](range);
+          string[] memory _process = new string[](range);
+          string[] memory _breachName = new string[](range);
 		  
 		  uint bid = 0;
           if (startId == 0){
