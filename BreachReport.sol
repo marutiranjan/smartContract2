@@ -151,16 +151,15 @@ contract BreachReport {
           string[] memory _breachName;
 
 
-
           uint j=0;
           for (uint i = breachid-1; i > 0; i--) {
               if(breaches[i].id > 0){
-                _id[j] = breaches[i].id;  
-                _state[j] = breaches[i].state;
-                _control[j] = breaches[i].control;
-                _product[j] = breaches[i].product;
-                _process[j] = breaches[i].process;
-                _breachName[j] = breaches[i].breachName;
+                _id.push(breaches[i].id);  
+                _state.push(breaches[i].state);
+                _control.push(breaches[i].control);
+                _product.push(breaches[i].product);
+                _process.push(breaches[i].process);
+                _breachName.push(breaches[i].breachName);
                 j +=1;
               }
           }
