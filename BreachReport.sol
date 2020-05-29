@@ -70,20 +70,20 @@ contract BreachReport {
     function breachUpdate(uint breachid,string[] memory breachFields,string[] memory breachValues) public {
         
         if(breaches[breachid].id == breachid){
-            Breach memory breach = Breach(breachid,'INPROCESS',breachValues[0],breachValues[1],breachValues[2],breachValues[3],breachValues[4],breachValues[5],breachValues[6],breachValues[7],breachValues[8],breachValues[9],breachValues[10],'SYSTEM');
+            Breach memory breach = Breach(breachid,'ACTIVE',breachValues[0],breachValues[1],breachValues[2],breachValues[3],breachValues[4],breachValues[5],breachValues[6],breachValues[7],breachValues[8],breachValues[9],breachValues[10],'SYSTEM');
             breaches[breachid] = breach;
         }
     } 
 
     function inActivateBreach(uint256 _id) public {
         if(breaches[_id].id == _id) {
-            breaches[_id].state = 'INVALID';
+            breaches[_id].state = 'INACTIVE';
         }
     }
     
     function ActivateBreach(uint256 _id) public {
         if(breaches[_id].id == _id) {
-            breaches[_id].state = 'INVALID';
+            breaches[_id].state = 'ACTIVE';
         }
     }
 	
