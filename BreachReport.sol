@@ -116,7 +116,7 @@ contract BreachReport {
         }
     }  
     
-    function getBreachData(uint _id) public onlyOrg view returns (uint breachid,string[] memory breachFields,string[] memory breachValues){
+    function getBreachData(uint _id) public onlyOrg isNotStopped view returns (uint breachid,string[] memory breachFields,string[] memory breachValues){
       if( breaches[_id].id == _id) {
           string [] memory _breachFields = new string[](13);
           string [] memory _breachValues = new string[](13);
