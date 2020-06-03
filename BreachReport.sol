@@ -71,13 +71,13 @@ contract BreachReport {
       stopped = !stopped;
     }  
 
-    function breachInsert(string[] memory breachFields,string[] memory breachValues) public onlyRiskAndComplianceTeam {
+    function breachInsert(string[] memory breachFields,string[] memory breachValues) public onlyRiskAndComplianceTeam isNotStopped {
         Breach memory breach = Breach(breachid,'INIT',breachValues[0],breachValues[1],breachValues[2],breachValues[3],breachValues[4],breachValues[5],breachValues[6],breachValues[7],breachValues[8],breachValues[9],breachValues[10],'SYSTEM');
         breaches[breachid] = breach;
         breachid +=1;
     } 
 
-    function breachUpdate(uint breachid,string[] memory breachFields,string[] memory breachValues) public onlyRiskAndComplianceTeam {
+    function breachUpdate(uint breachid,string[] memory breachFields,string[] memory breachValues) public onlyRiskAndComplianceTeam isNotStopped {
         
         if(breaches[breachid].id == breachid){
             Breach memory breach = Breach(breachid,'ACTIVE',breachValues[0],breachValues[1],breachValues[2],breachValues[3],breachValues[4],breachValues[5],breachValues[6],breachValues[7],breachValues[8],breachValues[9],breachValues[10],'SYSTEM');
@@ -85,32 +85,32 @@ contract BreachReport {
         }
     } 
 
-    function inActivateBreach(uint256 _id) public onlyRiskTeamAndAuditor {
+    function inActivateBreach(uint256 _id) public onlyRiskTeamAndAuditor isNotStopped {
         if(breaches[_id].id == _id) {
             breaches[_id].state = 'INACTIVE';
         }
     }
     
-    function ActivateBreach(uint256 _id) public onlyRiskTeamAndAuditor {
+    function ActivateBreach(uint256 _id) public onlyRiskTeamAndAuditor isNotStopped {
         if(breaches[_id].id == _id) {
             breaches[_id].state = 'ACTIVE';
         }
     }
 	
-    function riskAndComplianceTeamSignOff(uint256 _id) public onlyRiskAndComplianceTeam {
+    function riskAndComplianceTeamSignOff(uint256 _id) public onlyRiskAndComplianceTeam isNotStopped {
 
         if(breaches[_id].id == _id) {
             breaches[_id].state = 'RCTSIGNOFF';
         }
     }  
 
-    function auditorSignOff(uint256 _id) public onlyAuditor {
+    function auditorSignOff(uint256 _id) public onlyAuditor isNotStopped {
         if(breaches[_id].id == _id) {
             breaches[_id].state = 'AUDITSIGNOFF';
         }
     }  
 
-    function regulatorAck(uint256 _id) public onlyRegulator {
+    function regulatorAck(uint256 _id) public onlyRegulator isNotStopped {
         if(breaches[_id].id == _id) {
             breaches[_id].state = 'REGACK';
         }
@@ -152,7 +152,7 @@ contract BreachReport {
       }
      }     
 
-      function getAllBreaches() public onlyOrg view returns (uint[] memory breachId,string[] memory state,string[] memory control,string[] memory product,string[] memory process,string[] memory breachName){
+      function getAllBreaches() public onlyOrg isNotStopped view returns (uint[] memory breachId,string[] memory state,string[] memory control,string[] memory product,string[] memory process,string[] memory breachName){
           uint[] memory _id = new uint[](breachid-1);
           string[] memory _state = new string[](breachid-1);
           string[] memory _control = new string[](breachid-1);
@@ -177,7 +177,7 @@ contract BreachReport {
           return (_id,_state,_control,_product,_process,_breachName);
       }	 
 	  
-      function getBreachesInRange(uint startId,uint range) public onlyOrg view returns (uint[] memory breachId,string[] memory state,string[] memory control,string[] memory product,string[] memory process,string[] memory breachName){
+      function getBreachesInRange(uint startId,uint range) public onlyOrg isNotStopped view returns (uint[] memory breachId,string[] memory state,string[] memory control,string[] memory product,string[] memory process,string[] memory breachName){
           
 		  uint[] memory _id = new uint[](range);
           string[] memory _state = new string[](range);
@@ -208,7 +208,7 @@ contract BreachReport {
           return (_id,_state,_control,_product,_process,_breachName);
       }	
 	  
-    function getBreachDataForRegulator(uint _id) public onlyRegulator view returns (uint breachid,string[] memory breachFields,string[] memory breachValues){
+    function getBreachDataForRegulator(uint _id) public onlyRegulator isNotStopped view returns (uint breachid,string[] memory breachFields,string[] memory breachValues){
       if( breaches[_id].id == _id && ( ((keccak256(bytes(breaches[_id].state)) == keccak256(bytes("AUDITSIGNOFF")))) ||  ((keccak256(bytes(breaches[_id].state)) == keccak256(bytes("REGACK")))) ) ) {
           string [] memory _breachFields = new string[](13);
           string [] memory _breachValues = new string[](13);
@@ -244,7 +244,7 @@ contract BreachReport {
       }
      }     
 
-      function getAllBreachesForRegulator() public onlyRegulator view returns (uint[] memory breachId,string[] memory state,string[] memory control,string[] memory product,string[] memory process,string[] memory breachName){
+      function getAllBreachesForRegulator() public onlyRegulator isNotStopped view returns (uint[] memory breachId,string[] memory state,string[] memory control,string[] memory product,string[] memory process,string[] memory breachName){
           uint[] memory _id = new uint[](breachid-1);
           string[] memory _state = new string[](breachid-1);
           string[] memory _control = new string[](breachid-1);
@@ -269,7 +269,7 @@ contract BreachReport {
           return (_id,_state,_control,_product,_process,_breachName);
       }	 
 	  
-      function getBreachesInRangeForRegulator(uint startId,uint range) public onlyRegulator view returns (uint[] memory breachId,string[] memory state,string[] memory control,string[] memory product,string[] memory process,string[] memory breachName){
+      function getBreachesInRangeForRegulator(uint startId,uint range) public onlyRegulator isNotStopped view returns (uint[] memory breachId,string[] memory state,string[] memory control,string[] memory product,string[] memory process,string[] memory breachName){
           uint[] memory _id = new uint[](range);
           string[] memory _state = new string[](range);
           string[] memory _control = new string[](range);
